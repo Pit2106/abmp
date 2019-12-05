@@ -4,11 +4,27 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.pruebas.abmp.dataApi.ServiceABMP;
+import com.pruebas.abmp.models.Animal;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -28,6 +44,15 @@ public class AnimalsList extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Retrofit retrofit;
+    private static final String BASEURL = "https://www.datos.gov.co/resource/";
+    private static final String TAG = "ANIMALS";
+
+    private RecyclerView recyclerView;
+    private int offset;
+    private boolean enableLoad;
+    AnimalListAdapter adapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -59,6 +84,8 @@ public class AnimalsList extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            //--------------
+            offset=0;
         }
     }
 
@@ -66,7 +93,54 @@ public class AnimalsList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_animals_list, container, false);
+        View v =  inflater.inflate(R.layout.fragment_animals_list, container, false);
+        //-------------------------
+        recyclerView = v.findViewById(R.id.rvListA);
+        adapter = new AnimalListAdapter();
+        recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
+        final LinearLayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext());
+        recyclerView.setLayoutManager(manager);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(dy > 0){
+                    int visibleItemCount = manager.getChildCount();
+                    int totalItemContent = manager.getItemCount();
+                    int pasVisibleItems = manager.findFirstVisibleItemPosition();
+
+                    if(enableLoad){
+                        if(visibleItemCount + pasVisibleItems >= totalItemContent){
+                            enableLoad = false;
+                            offset+=20;
+                            getData(offset); // CARGADOR
+                        }
+                    }
+                }
+            }
+        });
+
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<Animal> as = adapter.getAnimals();
+                /// hacer aqui algo
+                Toast.makeText(getActivity().getApplicationContext(),""+as.get(recyclerView.getChildAdapterPosition(view)).getName(),Toast.LENGTH_LONG).show();
+            }
+        });
+
+        enableLoad = true;
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASEURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        getData(offset); //CARGADOR
+        //-------------------------
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -106,5 +180,30 @@ public class AnimalsList extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    private void getData(int offset){
+        ServiceABMP service = retrofit.create(ServiceABMP.class);
+        Call<ArrayList<Animal>> openResponseCall = service.getListAmphibians(20,offset);
+
+        openResponseCall.enqueue(new Callback<ArrayList<Animal>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Animal>> call, Response<ArrayList<Animal>> response) {
+
+                enableLoad = true;
+                if(response.isSuccessful()){
+                    ArrayList<Animal> ans = response.body();
+                    adapter.addList(ans);
+
+                }else{
+                    Log.e(TAG,"onResponse: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Animal>> call, Throwable t) {
+
+            }
+        });
+
     }
 }

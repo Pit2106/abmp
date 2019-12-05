@@ -1,5 +1,6 @@
 package com.pruebas.abmp;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -18,12 +19,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        HomeFragment.OnFragmentInteractionListener,
+        AnimalsList.OnFragmentInteractionListener{
 
+    private HomeFragment hf;
+    private AnimalsList af;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +52,16 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
+
+        hf = new HomeFragment();
+        af = new AnimalsList();
+
+        getSupportFragmentManager().beginTransaction().add(R.id.lycontainer, hf).commit();
+
+        navigationView.setCheckedItem(R.id.nav_home);
+        setTitle(R.string.menu_home);
+
+
     }
 
     @Override
@@ -84,11 +100,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
+            ft.replace(R.id.lycontainer,hf).commit();
+            setTitle(R.string.menu_home);
         } else if (id == R.id.nav_amphibians) {
+            ft.replace(R.id.lycontainer,af).commit();
+            setTitle(R.string.menu_Amphibians);
 
         } else if (id == R.id.nav_birds) {
 
@@ -99,5 +119,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
