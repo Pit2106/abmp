@@ -30,6 +30,11 @@ public class MainActivity extends AppCompatActivity
 
     private HomeFragment hf;
     private AnimalsList af;
+    private AnimalsList bf;
+    private AnimalsList mf;
+    private static final String AMPHIBIANS = "Amphibia";
+    private static final String BIRDS = "aves";
+    private static final String MAMMALS = "Mammalia";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +59,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setItemIconTintList(null);
 
         hf = new HomeFragment();
-        af = new AnimalsList();
+        af = new AnimalsList(AMPHIBIANS,"N");
+        bf = new AnimalsList(BIRDS,"N");
+        mf = new AnimalsList(MAMMALS,"N");
+
 
         getSupportFragmentManager().beginTransaction().add(R.id.lycontainer, hf).commit();
 
@@ -109,11 +117,12 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_amphibians) {
             ft.replace(R.id.lycontainer,af).commit();
             setTitle(R.string.menu_Amphibians);
-
         } else if (id == R.id.nav_birds) {
-
+            ft.replace(R.id.lycontainer,bf).commit();
+            setTitle(R.string.menu_Birds);
         } else if (id == R.id.nav_mammals) {
-
+            ft.replace(R.id.lycontainer,mf).commit();
+            setTitle(R.string.menu_Mammals);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

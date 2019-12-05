@@ -1,8 +1,12 @@
 package com.pruebas.abmp;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +18,12 @@ import java.util.ArrayList;
 
 public class AnimalListAdapter extends RecyclerView.Adapter<AnimalListAdapter.ViewHolder>
         implements View.OnClickListener {
+
+    private static final String AMPHIBIANS = "Amphibia";
+    private static final String BIRDS = "aves";
+    private static final String MAMMALS = "Mammalia";
+
+    private Context context;
 
     private ArrayList<Animal> animals;
     private View.OnClickListener listener;
@@ -28,6 +38,7 @@ public class AnimalListAdapter extends RecyclerView.Adapter<AnimalListAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_animals_list, parent, false);
         view.setOnClickListener(this);
         return new ViewHolder(view);
@@ -36,8 +47,21 @@ public class AnimalListAdapter extends RecyclerView.Adapter<AnimalListAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Animal a = animals.get(position);
+        if(a.getKind().equals(AMPHIBIANS)){
+
+            holder.lyCardView.setBackgroundColor(context.getResources().getColor(R.color.colorAmphibians));
+            holder.imgCard.setImageResource(R.mipmap.ic_amphibians);
+        }
+        if(a.getKind().equals(BIRDS)){
+            holder.lyCardView.setBackgroundColor(context.getResources().getColor(R.color.colorBirds));
+            holder.imgCard.setImageResource(R.mipmap.ic_birds);
+        }
+        if(a.getKind().equals(MAMMALS)){
+            holder.lyCardView.setBackgroundColor(context.getResources().getColor(R.color.colorMammals));
+            holder.imgCard.setImageResource(R.mipmap.ic_mammals);
+        }
         holder.tvName.setText(a.getName());
-        holder.tvKingdom.setText(a.getKingdom());
+        holder.tvOrder.setText(a.getOrder());
     }
 
     @Override
@@ -65,13 +89,17 @@ public class AnimalListAdapter extends RecyclerView.Adapter<AnimalListAdapter.Vi
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView tvName, tvKingdom;
+        private TextView tvName, tvOrder;
+        private LinearLayout lyCardView;
+        private ImageView imgCard;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            imgCard = itemView.findViewById(R.id.imgCard);
+            lyCardView = itemView.findViewById(R.id.lyCardView);
             tvName = itemView.findViewById(R.id.tvName);
-            tvKingdom = itemView.findViewById(R.id.tvKingdom);
+            tvOrder = itemView.findViewById(R.id.tvOrder);
         }
     }
 }
