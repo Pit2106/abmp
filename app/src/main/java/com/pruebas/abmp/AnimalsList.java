@@ -13,6 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.pruebas.abmp.dataApi.ServiceABMP;
@@ -54,6 +59,7 @@ public class AnimalsList extends Fragment {
 
     private RecyclerView recyclerView;
     private int offset;
+    private String orderParam;
     private boolean enableLoad;
     AnimalListAdapter adapter;
 
@@ -94,6 +100,7 @@ public class AnimalsList extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
             //--------------
             offset=0;
+            orderParam=":id";
         }
     }
 
@@ -103,8 +110,20 @@ public class AnimalsList extends Fragment {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_animals_list, container, false);
         //-------------------------
+        Spinner order = v.findViewById(R.id.spOrder);
+        final ArrayList<String> itemOrder = new ArrayList<>();
+        itemOrder.add(getString(R.string.io_none));
+        itemOrder.add(getString(R.string.io_order));
+        itemOrder.add(getString(R.string.io_family));
+        itemOrder.add(getString(R.string.io_gender));
+        itemOrder.add(getString(R.string.io_dangerRate));
+
+        order.setAdapter(new ArrayAdapter(getActivity().getApplicationContext(),android.R.layout.simple_spinner_item,itemOrder));
+
+
         recyclerView = v.findViewById(R.id.rvListA);
         adapter = new AnimalListAdapter();
+        adapter.setOrderParam(orderParam);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         final LinearLayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -123,10 +142,35 @@ public class AnimalsList extends Fragment {
                         if(visibleItemCount + pasVisibleItems >= totalItemContent){
                             enableLoad = false;
                             offset+=20;
-                            getData(offset); // CARGADOR
+                            getData(offset, orderParam); // CARGADOR
                         }
                     }
                 }
+            }
+        });
+
+        order.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(itemOrder.get(i).equals(getString(R.string.io_none)))    orderParam = ":id";
+                if(itemOrder.get(i).equals(getString(R.string.io_order)))    orderParam = "orden";
+                if(itemOrder.get(i).equals(getString(R.string.io_family)))    orderParam = "familia";
+                if(itemOrder.get(i).equals(getString(R.string.io_gender)))    orderParam = "g_nero";
+                if(itemOrder.get(i).equals(getString(R.string.io_dangerRate)))    orderParam = "estado_de_amenaza";
+
+                offset=0;
+                adapter = new AnimalListAdapter();
+                adapter.setOrderParam(orderParam);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setHasFixedSize(true);
+                final LinearLayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext());
+                recyclerView.setLayoutManager(manager);
+                getData(offset, orderParam);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
@@ -146,7 +190,7 @@ public class AnimalsList extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        getData(offset); //CARGADOR
+        getData(offset, orderParam); //CARGADOR
         //-------------------------
         return v;
     }
@@ -189,17 +233,17 @@ public class AnimalsList extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-    private void getData(int offset){
+    private void getData(int offset, String orderParam){
         Call<ArrayList<Animal>> openResponseCall = null;
         ServiceABMP service = retrofit.create(ServiceABMP.class);
         if(mParam1.equals(AMPHIBIANS)){
-            openResponseCall = service.getListAmphibians(20,offset);
+            openResponseCall = service.getListAmphibians("distinct*",orderParam,20,offset);
         }
         if(mParam1.equals(BIRDS)){
-            openResponseCall = service.getListBirds(20,offset);
+            openResponseCall = service.getListBirds("distinct*",orderParam,20,offset);
         }
         if(mParam1.equals(MAMMALS)){
-            openResponseCall = service.getListMammals(20,offset);
+            openResponseCall = service.getListMammals("distinct*",orderParam,20,offset);
         }
 
         openResponseCall.enqueue(new Callback<ArrayList<Animal>>() {

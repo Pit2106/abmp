@@ -12,6 +12,12 @@
     <string name="menu_Birds">Birds</string>
     <string name="menu_Mammals">Mammals</string>
 
+    <string name="io_none">None</string>
+    <string name="io_order">Order</string>
+    <string name="io_family">Family</string>
+    <string name="io_gender">Gender</string>
+    <string name="io_dangerRate">Danger Rate</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

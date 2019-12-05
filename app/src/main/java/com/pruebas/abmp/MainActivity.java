@@ -23,6 +23,15 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
 
+/*
+Actividades
+Esteticas
+FUnciona 1 lista
+funcionan 3listas
+funcionan Filtros : Familia, Genero, Orden, Amenaza
+Funciona onclickListener
+esteticas Amenaza
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,

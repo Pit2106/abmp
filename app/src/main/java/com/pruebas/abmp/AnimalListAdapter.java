@@ -23,6 +23,16 @@ public class AnimalListAdapter extends RecyclerView.Adapter<AnimalListAdapter.Vi
     private static final String BIRDS = "aves";
     private static final String MAMMALS = "Mammalia";
 
+    private String orderParam;
+
+    public String getOrderParam() {
+        return orderParam;
+    }
+
+    public void setOrderParam(String orderParam) {
+        this.orderParam = orderParam;
+    }
+
     private Context context;
 
     private ArrayList<Animal> animals;
@@ -48,7 +58,6 @@ public class AnimalListAdapter extends RecyclerView.Adapter<AnimalListAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Animal a = animals.get(position);
         if(a.getKind().equals(AMPHIBIANS)){
-
             holder.lyCardView.setBackgroundColor(context.getResources().getColor(R.color.colorAmphibians));
             holder.imgCard.setImageResource(R.mipmap.ic_amphibians);
         }
@@ -60,8 +69,15 @@ public class AnimalListAdapter extends RecyclerView.Adapter<AnimalListAdapter.Vi
             holder.lyCardView.setBackgroundColor(context.getResources().getColor(R.color.colorMammals));
             holder.imgCard.setImageResource(R.mipmap.ic_mammals);
         }
+
         holder.tvName.setText(a.getName());
         holder.tvOrder.setText(a.getOrder());
+
+        if(orderParam.equals(":id"))    holder.tvOp.setText("");
+        if(orderParam.equals("orden"))     holder.tvOp.setText("");
+        if(orderParam.equals("familia"))    holder.tvOp.setText(a.getFamily());
+        if(orderParam.equals("g_nero"))    holder.tvOp.setText(a.getGender());
+        if(orderParam.equals("estado_de_amenaza"))    holder.tvOp.setText(a.getExt());
     }
 
     @Override
@@ -89,7 +105,7 @@ public class AnimalListAdapter extends RecyclerView.Adapter<AnimalListAdapter.Vi
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView tvName, tvOrder;
+        private TextView tvName, tvOrder, tvOp;
         private LinearLayout lyCardView;
         private ImageView imgCard;
 
@@ -100,6 +116,7 @@ public class AnimalListAdapter extends RecyclerView.Adapter<AnimalListAdapter.Vi
             lyCardView = itemView.findViewById(R.id.lyCardView);
             tvName = itemView.findViewById(R.id.tvName);
             tvOrder = itemView.findViewById(R.id.tvOrder);
+            tvOp = itemView.findViewById(R.id.tvOp);
         }
     }
 }
