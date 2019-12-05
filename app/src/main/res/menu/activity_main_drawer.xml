@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_amphibians"
+            android:icon="@mipmap/ic_amphibians"
+            android:title="@string/menu_Amphibians" />
+        <item
+            android:id="@+id/nav_birds"
+            android:icon="@mipmap/ic_birds"
+            android:title="@string/menu_Birds" />
+        <item
+            android:id="@+id/nav_mammals"
+            android:icon="@mipmap/ic_mammals"
+            android:title="@string/menu_Mammals" />
+    </group>
+
+</menu>
