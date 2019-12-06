@@ -89,6 +89,7 @@ public class AnimalViewFragment extends Fragment {
         tvFamily=v.findViewById(R.id.tvFamily);
         tvDanger=v.findViewById(R.id.tvDanger);
 
+
         if(cAnimal.getKind().equals("Amphibia")) imgView.setImageResource(R.mipmap.ic_amphibians);
         if(cAnimal.getKind().equals("aves")) imgView.setImageResource(R.mipmap.ic_birds);
         if(cAnimal.getKind().equals("Mammalia")) imgView.setImageResource(R.mipmap.ic_mammals);
@@ -99,7 +100,26 @@ public class AnimalViewFragment extends Fragment {
         tvGender.append(cAnimal.getGender());
         tvOrder.append(cAnimal.getOrder());
         tvFamily.append(cAnimal.getFamily());
-        tvDanger.append(cAnimal.getExt());
+
+        if(cAnimal.getExt()==null) tvDanger.append(getString(R.string.dang_ne));
+        else {
+            if (cAnimal.getExt().equals("DD") || cAnimal.getExt().equals("Datos deficientes"))
+                tvDanger.append(getString(R.string.dang_dd));
+            if (cAnimal.getExt().equals("EX") || cAnimal.getExt().equals("Extinto"))
+                tvDanger.append(getString(R.string.dang_ex));
+            if (cAnimal.getExt().equals("EW") || cAnimal.getExt().equals("Extinto en Estado Silvestre"))
+                tvDanger.append(getString(R.string.dang_ew));
+            if (cAnimal.getExt().equals("CR") || cAnimal.getExt().equals("En Peligro Critico"))
+                tvDanger.append(getString(R.string.dang_cr));
+            if (cAnimal.getExt().equals("EN") || cAnimal.getExt().equals("En peligro"))
+                tvDanger.append(getString(R.string.dang_en));
+            if (cAnimal.getExt().equals("VU") || cAnimal.getExt().equals("Vulnerable"))
+                tvDanger.append(getString(R.string.dang_vu));
+            if (cAnimal.getExt().equals("NT") || cAnimal.getExt().equals("Casi amenazada"))
+                tvDanger.append(getString(R.string.dang_nt));
+            if (cAnimal.getExt().equals("LC") || cAnimal.getExt().equals("Preocupación menor"))
+                tvDanger.append(getString(R.string.dang_lc));
+        }
 
         return v;
     }

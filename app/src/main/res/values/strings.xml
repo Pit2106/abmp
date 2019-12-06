@@ -18,6 +18,16 @@
     <string name="io_gender">Gender</string>
     <string name="io_dangerRate">Danger Rate</string>
 
+    <string name="dang_ex">Extintic</string>
+    <string name="dang_ew">Extintic in the Wild</string>
+    <string name="dang_cr">Critically Endangered</string>
+    <string name="dang_en">Endangered</string>
+    <string name="dang_vu">Vulnerable</string>
+    <string name="dang_nt">Near threatened</string>
+    <string name="dang_lc">Least concern</string>
+    <string name="dang_ne">Not Evaluated</string>
+    <string name="dang_dd">Data Deficient</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

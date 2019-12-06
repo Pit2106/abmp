@@ -3,6 +3,7 @@ package com.pruebas.abmp.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.pruebas.abmp.R;
 
 public class Animal {
 
