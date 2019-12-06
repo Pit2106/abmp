@@ -23,6 +23,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
+import android.widget.Switch;
 
 /*
 Actividades
@@ -33,7 +34,7 @@ funcionan Filtros : Familia, Genero, Orden, Amenaza
 Funciona onclickListener
 esteticas Amenaza
 on back pressed y on resume
-splash screen e icono de app
+splash screen e icono de app, home
 strings
  */
 public class MainActivity extends AppCompatActivity
@@ -46,25 +47,21 @@ public class MainActivity extends AppCompatActivity
     private AnimalsList af;
     private AnimalsList bf;
     private AnimalsList mf;
+    private Boolean animalFlag;
     private static final String AMPHIBIANS = "Amphibia";
     private static final String BIRDS = "aves";
     private static final String MAMMALS = "Mammalia";
+    private NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -76,6 +73,7 @@ public class MainActivity extends AppCompatActivity
         af = new AnimalsList(AMPHIBIANS,"N");
         bf = new AnimalsList(BIRDS,"N");
         mf = new AnimalsList(MAMMALS,"N");
+        animalFlag=false;
 
 
         getSupportFragmentManager().beginTransaction().add(R.id.lycontainer, hf).commit();
@@ -89,11 +87,21 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+
+        if(navigationView.getCheckedItem().getItemId()==R.id.nav_amphibians && animalFlag){
+            animalFlag = false;
+            getSupportFragmentManager().beginTransaction().replace(R.id.lycontainer, af).commit();
+        }else if(navigationView.getCheckedItem().getItemId()==R.id.nav_birds && animalFlag)
+        {
+            animalFlag = false;
+            getSupportFragmentManager().beginTransaction().replace(R.id.lycontainer, bf).commit();
         }
+        else if(navigationView.getCheckedItem().getItemId()==R.id.nav_mammals && animalFlag)
+        {
+            animalFlag = false;
+            getSupportFragmentManager().beginTransaction().replace(R.id.lycontainer, mf).commit();
+        }
+        else super.onBackPressed();
     }
 
     @Override
@@ -145,6 +153,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void showViewAnimal(Animal a ){
+        animalFlag=true;
         getSupportFragmentManager().beginTransaction().replace(R.id.lycontainer,new AnimalViewFragment(a)).commit();
     }
 

@@ -173,6 +173,8 @@ public class AnimalsList extends Fragment {
                 final LinearLayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext());
                 recyclerView.setLayoutManager(manager);
                 getData(offset, orderParam);
+                ArrayList<Animal> as = adapter.getAnimals();
+
             }
 
             @Override
@@ -231,6 +233,13 @@ public class AnimalsList extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData(offset, orderParam);
+    }
+
     private void getData(int offset, String orderParam){
         Call<ArrayList<Animal>> openResponseCall = null;
         ServiceABMP service = retrofit.create(ServiceABMP.class);
