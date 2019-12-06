@@ -32,6 +32,9 @@ funcionan 3listas
 funcionan Filtros : Familia, Genero, Orden, Amenaza
 Funciona onclickListener
 esteticas Amenaza
+on back pressed y on resume
+splash screen e icono de app
+strings
  */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,

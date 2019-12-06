@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pruebas.abmp.models.Animal;
@@ -121,7 +122,80 @@ public class AnimalViewFragment extends Fragment {
                 tvDanger.append(getString(R.string.dang_lc));
         }
 
+        setDangerColor(v);
         return v;
+    }
+
+    private void setDangerColor(View v) {
+        TextView tvNameC, tvKingdom, tvOrder, tvClase, tvFamily, tvGender, tvDanger;
+        ImageView imgView;
+        RelativeLayout rlA;
+
+        imgView=v.findViewById(R.id.imgView);
+
+        rlA=v.findViewById(R.id.lyAnimalView);
+
+        tvNameC=v.findViewById(R.id.tvNameC);
+        tvKingdom=v.findViewById(R.id.tvKingdom);
+        tvClase=v.findViewById(R.id.tvClase);
+        tvGender=v.findViewById(R.id.tvGender);
+        tvOrder=v.findViewById(R.id.tvOrder);
+        tvFamily=v.findViewById(R.id.tvFamily);
+        tvDanger=v.findViewById(R.id.tvDanger);
+
+        int colorText, colorBck;
+        colorText=0;
+        colorBck=0;
+
+        if(cAnimal.getExt()==null){
+            colorText=R.color.colorLightPrimary;
+            colorBck=R.color.colorPrimary;
+        }
+        else {
+            if (cAnimal.getExt().equals("DD") || cAnimal.getExt().equals("Datos deficientes")){
+                colorText=R.color.colorLightPrimary;
+                colorBck=R.color.colorPrimary;
+            }
+            if (cAnimal.getExt().equals("EX") || cAnimal.getExt().equals("Extinto")){
+                colorText=R.color.colorRed;
+                colorBck=R.color.colorBlack;
+            }
+            if (cAnimal.getExt().equals("EW") || cAnimal.getExt().equals("Extinto en Estado Silvestre")){
+                colorText=R.color.colorWhite;
+                colorBck=R.color.colorBlack;
+            }
+            if (cAnimal.getExt().equals("CR") || cAnimal.getExt().equals("En Peligro Critico")){
+                colorText=R.color.colorPink;
+                colorBck=R.color.colorRed;
+            }
+            if (cAnimal.getExt().equals("EN") || cAnimal.getExt().equals("En peligro")){
+                colorText=R.color.colorOrange;
+                colorBck=R.color.colorLightOrange;
+            }
+            if (cAnimal.getExt().equals("VU") || cAnimal.getExt().equals("Vulnerable")){
+                colorText=R.color.colorYellow;
+                colorBck=R.color.colorLightYellow;
+            }
+            if (cAnimal.getExt().equals("NT") || cAnimal.getExt().equals("Casi amenazada")){
+                colorText=R.color.colorGreen;
+                colorBck=R.color.colorLightGreen;
+            }
+            if (cAnimal.getExt().equals("LC") || cAnimal.getExt().equals("Preocupación menor")){
+                colorText=R.color.colorGreen;
+                colorBck=R.color.colorWhite;
+            }
+        }
+
+        rlA.setBackgroundColor(getResources().getColor(colorBck));
+
+        tvNameC.setTextColor(getResources().getColor(colorText));
+        tvKingdom.setTextColor(getResources().getColor(colorText));
+        tvClase.setTextColor(getResources().getColor(colorText));
+        tvGender.setTextColor(getResources().getColor(colorText));
+        tvOrder.setTextColor(getResources().getColor(colorText));
+        tvFamily.setTextColor(getResources().getColor(colorText));
+        tvDanger.setTextColor(getResources().getColor(colorText));
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
