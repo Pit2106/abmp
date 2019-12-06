@@ -178,8 +178,9 @@ public class AnimalsList extends Fragment {
             @Override
             public void onClick(View view) {
                 ArrayList<Animal> as = adapter.getAnimals();
-                /// hacer aqui algo
-                Toast.makeText(getActivity().getApplicationContext(),""+as.get(recyclerView.getChildAdapterPosition(view)).getName(),Toast.LENGTH_LONG).show();
+                //((MainActivity)getActivity()).showViewAnimal(as.get(recyclerView.getChildAdapterPosition(view)));
+                Toast.makeText(getActivity().getApplicationContext(),
+                        "Presionado",Toast.LENGTH_LONG).show();
             }
         });
 

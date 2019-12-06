@@ -14,6 +14,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.pruebas.abmp.models.Animal;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -137,6 +138,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void showViewAnimal(Animal a ){
+        getSupportFragmentManager().beginTransaction().replace(R.id.lycontainer,new AnimalViewFragment(a)).commit();
     }
 
     @Override
