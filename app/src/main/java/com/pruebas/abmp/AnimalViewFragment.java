@@ -79,7 +79,7 @@ public class AnimalViewFragment extends Fragment {
         TextView tvNameC, tvKingdom, tvOrder, tvClase, tvFamily, tvGender, tvDanger;
         ImageView imgView;
 
-        imgView=v.findViewById(R.id.imageView);
+        imgView=v.findViewById(R.id.imgView);
 
         tvNameC=v.findViewById(R.id.tvNameC);
         tvKingdom=v.findViewById(R.id.tvKingdom);
@@ -93,13 +93,13 @@ public class AnimalViewFragment extends Fragment {
         if(cAnimal.getKind().equals("aves")) imgView.setImageResource(R.mipmap.ic_birds);
         if(cAnimal.getKind().equals("Mammalia")) imgView.setImageResource(R.mipmap.ic_mammals);
 
-        tvNameC.setText(cAnimal.getName());
-        tvKingdom.setText(cAnimal.getKingdom());
-        tvClase.setText(cAnimal.getKind());
-        tvGender.setText(cAnimal.getGender());
-        tvOrder.setText(cAnimal.getOrder());
-        tvFamily.setText(cAnimal.getFamily());
-        tvDanger.setText(cAnimal.getExt());
+        tvNameC.append(cAnimal.getName());
+        tvKingdom.append(cAnimal.getKingdom());
+        tvClase.append(cAnimal.getKind());
+        tvGender.append(cAnimal.getGender());
+        tvOrder.append(cAnimal.getOrder());
+        tvFamily.append(cAnimal.getFamily());
+        tvDanger.append(cAnimal.getExt());
 
         return v;
     }

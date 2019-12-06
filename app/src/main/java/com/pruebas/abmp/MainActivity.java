@@ -36,7 +36,8 @@ esteticas Amenaza
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
-        AnimalsList.OnFragmentInteractionListener{
+        AnimalsList.OnFragmentInteractionListener,
+        AnimalViewFragment.OnFragmentInteractionListener{
 
     private HomeFragment hf;
     private AnimalsList af;

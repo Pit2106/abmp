@@ -162,6 +162,13 @@ public class AnimalsList extends Fragment {
                 adapter = new AnimalListAdapter();
                 adapter.setOrderParam(orderParam);
                 recyclerView.setAdapter(adapter);
+                adapter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ArrayList<Animal> as = adapter.getAnimals();
+                        ((MainActivity)getActivity()).showViewAnimal(as.get(recyclerView.getChildAdapterPosition(view)));
+                    }
+                });
                 recyclerView.setHasFixedSize(true);
                 final LinearLayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext());
                 recyclerView.setLayoutManager(manager);
@@ -171,16 +178,6 @@ public class AnimalsList extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
-        });
-
-        adapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ArrayList<Animal> as = adapter.getAnimals();
-                //((MainActivity)getActivity()).showViewAnimal(as.get(recyclerView.getChildAdapterPosition(view)));
-                Toast.makeText(getActivity().getApplicationContext(),
-                        "Presionado",Toast.LENGTH_LONG).show();
             }
         });
 

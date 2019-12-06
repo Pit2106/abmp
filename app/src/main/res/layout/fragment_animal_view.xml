@@ -5,16 +5,15 @@
     android:background="@color/colorPrimaryDark"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
         <TextView
             android:id="@+id/tvDanger"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Danger Rate: "
             android:gravity="center"
+            android:textSize="15dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginBottom="150dp"
             android:layout_alignParentBottom="true"/>
 
         <TextView
@@ -22,7 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="15dp"
             android:layout_above="@+id/tvDanger"
+            android:layout_marginVertical="10dp"
             android:text="Gender: "/>
 
         <TextView
@@ -30,7 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="15dp"
             android:layout_above="@+id/tvGender"
+            android:layout_marginVertical="10dp"
             android:text="Family: "/>
         <TextView
             android:id="@+id/tvOrder"
@@ -38,6 +41,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_above="@+id/tvFamily"
+            android:layout_marginVertical="10dp"
             android:text="Order: "/>
 
         <TextView
@@ -45,7 +49,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="15dp"
             android:layout_above="@+id/tvOrder"
+            android:layout_marginVertical="10dp"
             android:text="Class: "/>
 
         <TextView
@@ -53,7 +59,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="15dp"
             android:layout_above="@+id/tvClase"
+            android:layout_marginVertical="10dp"
             android:text="Kingdom: "/>
 
         <ImageView
@@ -69,9 +77,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="25dp"
+            android:textColor="@color/colorPink"
+            android:textSize="30dp"
             android:layout_above="@+id/imgView"
-            android:text="Nombre: " />
-    </RelativeLayout>
+            android:layout_marginVertical="10dp"
+            android:text="Name: " />
 
 </RelativeLayout>
