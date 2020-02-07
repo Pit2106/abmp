@@ -7,10 +7,12 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+
     <string name="menu_home">Home</string>
     <string name="menu_Amphibians">Anphibians</string>
     <string name="menu_Birds">Birds</string>
     <string name="menu_Mammals">Mammals</string>
+    <string name="menu_where">Our Loction</string>
 
     <string name="io_none">None</string>
     <string name="io_order">Order</string>

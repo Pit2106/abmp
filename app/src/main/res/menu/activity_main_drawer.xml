@@ -20,6 +20,10 @@
             android:id="@+id/nav_mammals"
             android:icon="@mipmap/ic_mammals"
             android:title="@string/menu_Mammals" />
+        <item
+            android:id="@+id/nav_where"
+            android:icon="@drawable/ic_map_where"
+            android:title="@string/menu_where" />
     </group>
 
 </menu>

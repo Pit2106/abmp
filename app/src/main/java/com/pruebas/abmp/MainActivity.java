@@ -41,12 +41,14 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
         AnimalsList.OnFragmentInteractionListener,
-        AnimalViewFragment.OnFragmentInteractionListener{
+        AnimalViewFragment.OnFragmentInteractionListener,
+        MapFragment.OnFragmentInteractionListener{
 
     private HomeFragment hf;
     private AnimalsList af;
     private AnimalsList bf;
     private AnimalsList mf;
+    private MapFragment mapf;
     private Boolean animalFlag;
     private static final String AMPHIBIANS = "Amphibia";
     private static final String BIRDS = "aves";
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity
         af = new AnimalsList(AMPHIBIANS,"N");
         bf = new AnimalsList(BIRDS,"N");
         mf = new AnimalsList(MAMMALS,"N");
+        mapf = new MapFragment();
         animalFlag=false;
 
 
@@ -145,6 +148,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_mammals) {
             ft.replace(R.id.lycontainer,mf).commit();
             setTitle(R.string.menu_Mammals);
+        }else if (id == R.id.nav_where) {
+            ft.replace(R.id.lycontainer,mapf).commit();
+            setTitle(R.string.menu_where);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
